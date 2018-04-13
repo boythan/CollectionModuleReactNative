@@ -8,7 +8,8 @@ import Messages from '../../constant/message';
 import { Actions } from 'react-native-router-flux';
 import * as PositionsActions from '../../redux/action';
 import API from '../../network/API';
-import { NavBar } from '@base'
+import { NavBar, WebImage } from '@base'
+import { InputField, Line } from '../../base';
 
 class ProductDetailScreen extends Component {
   constructor(props) {
@@ -21,15 +22,44 @@ class ProductDetailScreen extends Component {
 
   //UI RENDER ----------------------------------------------------------------------------------
   render() {
+    const { product } = this.props;
     return <View style={styles.container}>
       <NavBar title={Messages.home.product}
         leftButtonAction={() => Actions.pop()} />
+
+      <View style={styles.containerImage}>
+        <WebImage
+          source={{ uri: product.avatar_url }}
+          resizeMode='cover'
+          containerStyle={{ width: '100%', height: '100%' }}
+        />
+      </View>
+      <InputField
+        containerStyle={styles.textInput}
+        contentInputProps={{
+          multiline: true,
+        }}
+        title={Messages.login.userName}
+        clickable={true}
+        editable={false}
+        content={product.login}
+      />
+      <Line/>
+      <InputField
+        containerStyle={styles.textInput}
+        contentInputProps={{
+          multiline: true,
+        }}
+        title={Messages.product.description}
+        clickable={true}
+        editable={false}
+        content={product.following_url}
+      />
+      <Line/>
       <TouchableOpacity style={styles.buttonText}>
         <Text>{this.props.product.login}</Text>
       </TouchableOpacity>
     </View>
-
-
   }
 };
 
@@ -50,6 +80,7 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: '100%',
+    backgroundColor: 'white'
   },
   buttonText: {
     height: 40,
@@ -61,5 +92,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 3
-  }
+  },
+  containerImage: {
+    width: '100%',
+    height: 300,
+  },
+  textInput: {
+    backgroundColor: 'white',
+  },
 });

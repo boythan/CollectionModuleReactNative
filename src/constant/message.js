@@ -22,6 +22,9 @@ export default {
   emptyView:{
     emptyProduct: 'There is no products',
     emptyOrder: 'There is no Orders'
+  },
+  product:{
+    description: 'Description',
   }
 
 

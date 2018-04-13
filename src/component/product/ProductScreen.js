@@ -1,9 +1,9 @@
 
 import React, { Component } from 'react';
-import { View, TextInput, Button, Alert, StyleSheet, Keyboard, Text, Linking, TouchableOpacity, FlatList } from 'react-native';
+import { View, TextInput, Button, Alert, StyleSheet, Keyboard, Text, Linking, TouchableOpacity, FlatList, Image } from 'react-native';
 import { connect } from 'react-redux';
 import Messages from '../../constant/message';
-import { Line, NavBar } from '@base'
+import { Line, NavBar, WebImage } from '@base'
 
 import { Actions } from 'react-native-router-flux';
 import * as PositionsActions from '../../redux/action';
@@ -26,10 +26,20 @@ class ProductScreen extends ListComponent {
   }
 
 
-  renderItem(user) {
+  renderItem(item) {
+    const user = item.item;
     return (
-      <TouchableOpacity onPress={() => Actions.productDetail({ product: user.item })}>
-        <Text style={styles.itemText}>{user.item.login}</Text>
+      <TouchableOpacity style={styles.containerCell} onPress={() => Actions.productDetail({ product: user })}>
+        <WebImage
+          
+          rounded
+          size={30}
+          source={{ uri: user.avatar_url }}
+          resizeMode='cover' />
+        <View>
+          <Text style={styles.itemText}>{user.login}</Text>
+          <Text style={styles.itemText}>{user.following_url}</Text>
+        </View>
       </TouchableOpacity>)
   }
 
@@ -90,11 +100,16 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   itemText: {
-    color: 'red',
     width: '100%',
     padding: 5
   },
   productList: {
     width: '100%'
+  },
+  containerCell: {
+    flexDirection: 'row',
+    padding: 5,
+    width: '100%',
+    alignItems: 'center'
   }
 });

@@ -4,8 +4,25 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import com.oblador.vectoricons.VectorIconsPackage;
+import com.react.rnspinkit.RNSpinkitPackage;
+
 import org.reactnative.camera.RNCameraPackage;
+
 import com.oblador.vectoricons.VectorIconsPackage;
+import com.react.rnspinkit.RNSpinkitPackage;
+
+import org.reactnative.camera.RNCameraPackage;
+
+import com.oblador.vectoricons.VectorIconsPackage;
+
+import org.reactnative.camera.RNCameraPackage;
+
+import com.oblador.vectoricons.VectorIconsPackage;
+
+import org.reactnative.camera.RNCameraPackage;
+
+import com.oblador.vectoricons.VectorIconsPackage;
+
 import org.reactnative.camera.RNCameraPackage;
 import org.reactnative.camera.RNCameraPackage;
 
@@ -35,8 +52,9 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-            new RNCameraPackage(),
-            new VectorIconsPackage()
+                    new RNSpinkitPackage(),
+                    new RNCameraPackage(),
+                    new VectorIconsPackage()
             );
         }
 
