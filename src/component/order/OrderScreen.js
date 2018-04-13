@@ -6,7 +6,6 @@ import Messages from '../../constant/message';
 import { Line, NavBar } from '@base'
 
 import { Actions } from 'react-native-router-flux';
-import * as PositionsActions from '../../redux/action';
 import API from '../../network/API';
 import ListComponent from '../../base/collection/ListComponent'
 import EmptyView from '../../base/collection/EmptyView'
@@ -75,7 +74,6 @@ const mapStateToProps = state => ({
 
 // Any actions to map to the component?
 const mapDispatchToProps = {
-  positionAction: PositionsActions.position
 }
 
 //Connect everything

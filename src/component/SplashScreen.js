@@ -5,7 +5,7 @@ import Messages from '../constant/message';
 
 
 import { Actions } from 'react-native-router-flux';
-
+import AccessTokenManager from '@data/AccessTokenManager'
 
 class SplashScreen extends Component {
   constructor(props) {
@@ -14,7 +14,18 @@ class SplashScreen extends Component {
     }
   }
   componentDidMount() {
-    setTimeout(function(){Actions.login()}, 3000);
+    AccessTokenManager.initialize().then(
+      () => {
+        // if (AccessTokenManager.getAccessToken()) {
+        //   Actions.home();
+        //   return;
+        // }
+        Actions.home();
+      }).catch(err => {
+        console.log('errorInitAccessToken', err)
+        Actions.login();
+      });
+    // setTimeout(function() {  }, 3000);
   }
   //UI CONTROL ---------------------------------------------------------------------------------
 

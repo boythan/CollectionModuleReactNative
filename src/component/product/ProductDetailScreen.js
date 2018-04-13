@@ -6,7 +6,6 @@ import Messages from '../../constant/message';
 
 
 import { Actions } from 'react-native-router-flux';
-import * as PositionsActions from '../../redux/action';
 import API from '../../network/API';
 import { NavBar, WebImage } from '@base'
 import { InputField, Line } from '../../base';
@@ -39,12 +38,12 @@ class ProductDetailScreen extends Component {
         contentInputProps={{
           multiline: true,
         }}
-        title={Messages.login.userName}
+        title={Messages.product.title}
         clickable={true}
         editable={false}
-        content={product.login}
+        content={product.title}
       />
-      <Line/>
+      <Line />
       <InputField
         containerStyle={styles.textInput}
         contentInputProps={{
@@ -53,12 +52,21 @@ class ProductDetailScreen extends Component {
         title={Messages.product.description}
         clickable={true}
         editable={false}
-        content={product.following_url}
+        content={product.description}
       />
-      <Line/>
-      <TouchableOpacity style={styles.buttonText}>
-        <Text>{this.props.product.login}</Text>
-      </TouchableOpacity>
+      <Line />
+      <InputField
+        containerStyle={styles.textInput}
+        contentInputProps={{
+          multiline: true,
+        }}
+        title={Messages.product.price}
+        clickable={true}
+        editable={false}
+        content={product.price}
+      />
+      <Line />
+
     </View>
   }
 };
@@ -70,7 +78,6 @@ const mapStateToProps = state => ({
 
 // Any actions to map to the component?
 const mapDispatchToProps = {
-  positionAction: PositionsActions.position
 }
 
 //Connect everything
@@ -95,7 +102,7 @@ const styles = StyleSheet.create({
   },
   containerImage: {
     width: '100%',
-    height: 300,
+    height: 150,
   },
   textInput: {
     backgroundColor: 'white',

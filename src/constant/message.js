@@ -12,7 +12,8 @@ export default {
   login: {
     userName: 'User name',
     password: 'Password',
-    login: 'Login'
+    login: 'Login',
+    fail: 'Login fail'
   },
   home: {
     product: 'Product',
@@ -25,6 +26,8 @@ export default {
   },
   product:{
     description: 'Description',
+    title : 'Title',
+    price : 'Price'
   }
 
 

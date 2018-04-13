@@ -6,10 +6,8 @@ import Messages from '../constant/message';
 
 
 import { Actions } from 'react-native-router-flux';
-import * as PositionsActions from '../redux/action';
 import API from '../network/API';
 import { NavBar } from '@base';
-import * as UserActions from '../redux/action';
 
 
 class UserProfileScreen extends Component {
@@ -28,7 +26,7 @@ class UserProfileScreen extends Component {
     return <View style={styles.container}>
       <NavBar title={Messages.home.profile}
         leftButtonAction={() => Actions.pop()} />
-      <Text>{'this.props.account.name'}</Text>
+      <Text>{this.props.account.userId}</Text>
       <TouchableOpacity style={styles.buttonText} onPress={() => {
         this.props.login({
           name: 'change'
@@ -49,7 +47,6 @@ const mapStateToProps = state => ({
 
 // Any actions to map to the component?
 const mapDispatchToProps = {
-  login: UserActions.doLogin
 
 }
 

@@ -6,7 +6,6 @@ import Messages from '../constant/message';
 
 
 import { Actions } from 'react-native-router-flux';
-import * as PositionsActions from '../redux/action';
 import StringUtils from '../utils/StringUtils'
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import API from '../network/API';

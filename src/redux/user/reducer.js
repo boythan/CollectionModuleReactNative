@@ -4,7 +4,7 @@ const initialState = {};
 
 export default function accountUser(state = initialState, action) {
   switch (action.type) {
-    case 'ACCOUNT':
+    case 'USER_LOGIN':
       return {
         ...state,
         account: action.data,

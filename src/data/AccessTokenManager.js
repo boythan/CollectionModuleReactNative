@@ -1,4 +1,4 @@
-import { LocalStorage } from './LocalStorage';
+import * as LocalStorage from './LocalStorage';
 
 const AccessTokenManager = { accessToken: null };
 const ACCESS_TOKEN = 'accessToken';

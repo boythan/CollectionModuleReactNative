@@ -6,7 +6,6 @@ import Messages from '../../constant/message';
 import { Line, NavBar, WebImage } from '@base'
 
 import { Actions } from 'react-native-router-flux';
-import * as PositionsActions from '../../redux/action';
 import API from '../../network/API';
 import ListComponent from '../../base/collection/ListComponent'
 import EmptyView from '../../base/collection/EmptyView'
@@ -22,23 +21,26 @@ class ProductScreen extends ListComponent {
   }
   //UI CONTROL ---------------------------------------------------------------------------------
   source = (pagingData) => {
-    return API.getUsers();
+    return API.getProducts();
   }
 
 
   renderItem(item) {
-    const user = item.item;
+    const product = item.item;
     return (
-      <TouchableOpacity style={styles.containerCell} onPress={() => Actions.productDetail({ product: user })}>
+      <TouchableOpacity style={styles.containerCell} onPress={() => Actions.productDetail({ product })}>
         <WebImage
-          
           rounded
           size={30}
-          source={{ uri: user.avatar_url }}
+          source={{ uri: product.avatar_url }}
           resizeMode='cover' />
-        <View>
-          <Text style={styles.itemText}>{user.login}</Text>
-          <Text style={styles.itemText}>{user.following_url}</Text>
+        <View style = {{width : AppSizes.screen.width - 40}}>
+          <View style = {{width : '100%',flexDirection : 'row', justifyContent: 'space-between'}}>
+            <Text style={styles.itemText}>{product.title}</Text>
+            <Text style={styles.itemText}>{product.price}</Text>
+          </View>
+          <Text style={styles.itemText}>{product.description}</Text>
+
         </View>
       </TouchableOpacity>)
   }
@@ -85,7 +87,6 @@ const mapStateToProps = state => ({
 
 // Any actions to map to the component?
 const mapDispatchToProps = {
-  positionAction: PositionsActions.position
 }
 
 //Connect everything
@@ -100,7 +101,6 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   itemText: {
-    width: '100%',
     padding: 5
   },
   productList: {
@@ -110,6 +110,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 5,
     width: '100%',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor : 'white'
   }
 });

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Messages from '../constant/message';
 
 import { Actions } from 'react-native-router-flux';
-import * as UserActions from '../redux/action';
+import * as UserActions from '@redux/user/action';
 import { InputField } from '@base';
 import { AppColors } from '@theme'
 class LoginScreen extends Component {
@@ -20,14 +20,21 @@ class LoginScreen extends Component {
   }
 
   onPressLogin() {
-    var account = {
-      // name: this.refs.userName.getTextInputValue(),
-      // pass: this.refs.password.getTextInputValue()
-      name: 'Vinh',
-      pass: '123456'
-    }
-    this.props.login(account);
-    Actions.home();
+    const userName = this.refs.userName.getTextInputValue();
+    const password = this.refs.password.getTextInputValue();
+
+    this.props.login(userName, password).then(res => {
+      console.log('login Success', res)
+      Actions.home();
+    }).catch(err => {
+      console.log('login Fail', err)
+      let error = err.error;
+      if (err.response && err.response.data) {
+        error = error || err.response.data.error;
+      }
+      Alert.alert(Messages.login.fail, error.message);
+    });
+
   }
   //UI RENDER ----------------------------------------------------------------------------------
   render() {

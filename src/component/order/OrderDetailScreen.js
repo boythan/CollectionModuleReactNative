@@ -6,7 +6,6 @@ import Messages from '../../constant/message';
 
 
 import { Actions } from 'react-native-router-flux';
-import * as PositionsActions from '../../redux/action';
 import API from '../../network/API';
 import { NavBar } from '@base'
 
