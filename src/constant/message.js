@@ -1,14 +1,10 @@
 export default {
-  enterText: 'Enter Text',
-  enterSubText: 'Enter Subtext',
   submit: 'Submit',
   result: 'Result: ',
   back: 'Back',
   alert: 'Alert',
-  needFillText: 'You need to fill text',
-  noMatch: 'No match',
-  fillText: 'Fill Text',
-  fillSubText: 'Fill Subtext',
+  error: 'Error',
+  success: 'Success',
   login: {
     userName: 'User name',
     password: 'Password',
@@ -27,7 +23,8 @@ export default {
   product:{
     description: 'Description',
     title : 'Title',
-    price : 'Price'
+    price : 'Price',
+    quantity: 'Quantity'
   }
 
 

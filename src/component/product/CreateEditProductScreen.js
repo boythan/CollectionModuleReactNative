@@ -8,86 +8,104 @@ import Messages from '../../constant/message';
 import { Actions } from 'react-native-router-flux';
 import API from '../../network/API';
 import { NavBar, WebImage } from '@base'
-import { InputField, Line } from '../../base';
+import { InputField, Line, Progress } from '../../base';
 import ButtonIcon from '../../base/ui/button/ButtonIcon';
-import { AppSizes, AppColors } from '@theme'
+import { AppSizes, AppColors } from '@theme';
 
-class ProductDetailScreen extends Component {
+class CreateEditProductScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      isEditMode: !!props.product,
     };
   }
 
   //UI CONTROL ---------------------------------------------------------------------------------
-  onClickEdit() {
-    Actions.createEditProduct({ product: this.props.product });
+  onClickEditDone() {
+    const product = {
+      id: this.props.product.id,
+      title: this.title.getTextInputValue(),
+      description: this.description.getTextInputValue(),
+      price: this.price.getTextInputValue(),
+      quantity: this.quantity.getTextInputValue()
+    }
+    Progress.show(API.updateProduct, [product], res => {
+      Alert.alert(Messages.success, res.data.responseData)
+    })
   }
+
 
   //UI RENDER ----------------------------------------------------------------------------------
   render() {
     const { product } = this.props;
+    const { isEditMode } = this.state;
     return <View style={styles.container}>
       <NavBar title={Messages.home.product}
         leftButtonAction={() => Actions.pop()}
         rightView={<View style={{ flexDirection: 'row' }}>
           <ButtonIcon
-            iconName={'mode-edit'}
+            iconName={'done'}
             iconColor={AppColors.iconColor}
             iconSize={AppSizes.iconSize}
-            action={() => this.onClickEdit()}
+            action={() => this.onClickEditDone()}
           />
         </View>} />
 
-      <View style={styles.containerImage}>
+      {/* <View style={styles.containerImage}>
         <WebImage
           source={{ uri: product.avatar_url }}
           resizeMode='cover'
           containerStyle={{ width: '100%', height: '100%' }}
         />
-      </View>
+      </View> */}
       <InputField
+        ref={(ref) => { this.title = ref }}
         containerStyle={styles.textInput}
         contentInputProps={{
           multiline: true,
         }}
         title={Messages.product.title}
-        editable={false}
-        content={product.title}
+        hintContent={Messages.product.title}
+        editable={true}
+        content={isEditMode ? product.title : ''}
       />
       <Line />
       <InputField
+        ref={(ref) => { this.description = ref }}
         containerStyle={styles.textInput}
         contentInputProps={{
           multiline: true,
         }}
         title={Messages.product.description}
-        clickable={true}
-        editable={false}
-        content={product.description}
+        hintContent={Messages.product.description}
+        editable={true}
+        content={isEditMode ? product.description : ''}
       />
       <Line />
       <InputField
+        ref={(ref) => { this.price = ref }}
         containerStyle={styles.textInput}
         contentInputProps={{
           multiline: true,
           keyboardType: 'numeric'
         }}
         title={Messages.product.price}
-        editable={false}
-        content={product.price}
+        hintContent={Messages.product.price}
+        editable={this.state.isEditMode}
+        content={isEditMode ? product.price : ''}
       />
       <Line />
       <InputField
+        ref={(ref) => { this.quantity = ref }}
         containerStyle={styles.textInput}
         contentInputProps={{
           multiline: true,
           keyboardType: 'numeric'
         }}
         title={Messages.product.quantity}
-        editable={false}
-        content={product.quantity}
+        hintContent={Messages.product.quantity}
+        editable={true}
+        content={isEditMode ? product.quantity : ''}
       />
       <Line />
     </View>
@@ -104,7 +122,7 @@ const mapDispatchToProps = {
 }
 
 //Connect everything
-export default connect(mapStateToProps, mapDispatchToProps)(ProductDetailScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateEditProductScreen);
 
 const styles = StyleSheet.create({
   container: {

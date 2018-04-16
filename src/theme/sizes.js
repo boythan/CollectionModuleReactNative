@@ -47,5 +47,7 @@ export default AppSizes = {
   listItemMediumHeight: 50,
   buttonSizeBase: 40,
   buttonSizeSmall: 24,
-  borderRadiusSmall:12
+  borderRadiusSmall:12,
+
+  iconSize : 20,
 };

@@ -29,7 +29,9 @@ const app = {
   lineGray: 'rgba(237,237,237,1)',
   statusbar: '#2b3545',
   sectionText: '#788793',
-  addMoreButton: 'rgba(0, 0, 0, 0.2)'
+  addMoreButton: 'rgba(0, 0, 0, 0.2)',
+
+  iconColor: '#9fadb4'
 };
 
 const brand = {

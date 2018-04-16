@@ -17,7 +17,7 @@ class InputField extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      textContent: props.content,
+      textContent: props.content + '',
     };
   }
 

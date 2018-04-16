@@ -53,4 +53,8 @@ API.login = (username, password) => {
 API.getProducts = () => {
   return API.instance.get('/api/Products')
 }
+
+API.updateProduct = (product) => {
+  return API.instance.put(`/api/Products/${product.id}`, product)
+}
 export default API;
