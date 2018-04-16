@@ -3,13 +3,14 @@ import React, { Component } from 'react';
 import { View, TextInput, Button, Alert, StyleSheet, Keyboard, Text, Linking, TouchableOpacity, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import Messages from '../../constant/message';
-import { Line, NavBar } from '@base'
+import { Line, NavBar, ButtonIcon } from '@base'
 
 import { Actions } from 'react-native-router-flux';
 import API from '../../network/API';
 import ListComponent from '../../base/collection/ListComponent'
 import EmptyView from '../../base/collection/EmptyView'
 import PagingView from '../../base/collection/PagingView'
+import EventsType from '@redux/refresh/eventsType';
 
 class OrderScreen extends ListComponent {
   constructor(props) {
@@ -19,16 +20,26 @@ class OrderScreen extends ListComponent {
   componentDidMount() {
     this.start();
   }
+
+  componentWillReceiveProps(nextProps) {
+    // check and refresh list
+    if (nextProps && nextProps.event && nextProps.event.types == EventsType.REFRESH_ORDER) {
+      if (!this.props.event || this.props.event.timeUnix != nextProps.event.timeUnix) {
+        this.refresh();
+      }
+    }
+  }
   //UI CONTROL ---------------------------------------------------------------------------------
   source = (pagingData) => {
-    return API.getUsers();
+    return API.getOrders();
   }
 
 
-  renderItem(user) {
+  renderItem(order) {
     return (
-      <TouchableOpacity onPress={() => Actions.orderDetail({ order: user.item })}>
-        <Text style={styles.itemText}>{user.item.login}</Text>
+      <TouchableOpacity style={{ padding: 5 }} onPress={() => Actions.orderDetail({ order })}>
+        <Text style={styles.itemText}>{order.note}</Text>
+        <Text style={styles.itemText}>{order.total}</Text>
       </TouchableOpacity>)
   }
 
@@ -43,15 +54,24 @@ class OrderScreen extends ListComponent {
     return res.data;
   }
 
+  onClickAdd() {
+    Actions.createEditOrder();
+  }
   //UI RENDER ----------------------------------------------------------------------------------
   render() {
 
     return <View style={styles.container}>
       <NavBar title={Messages.home.order}
+        rightView={<ButtonIcon
+          iconName={'add'}
+          iconColor={AppColors.iconColor}
+          iconSize={AppSizes.iconSize}
+          action={() => this.onClickAdd()}
+        />}
         leftButtonAction={() => Actions.pop()} />
       <FlatList
         style={styles.orderList}
-        renderItem={(item) => this.renderItem(item)}
+        renderItem={(item) => this.renderItem(item.item)}
         keyExtractor={item => item.id}
         refreshing={this.state.refreshing}
         data={this.state.data}
@@ -60,6 +80,7 @@ class OrderScreen extends ListComponent {
         ListFooterComponent={() => (<PagingView mode={this.state.pagingMode} retry={() => this.start()} />)}
         ItemSeparatorComponent={Line}
       />
+      <Line />
       <EmptyView mode={this.state.emptyMode} retry={() => this.start()} emptyText={Messages.emptyView.emptyOrder} />
     </View>
 
@@ -69,7 +90,7 @@ class OrderScreen extends ListComponent {
 
 // Redux
 const mapStateToProps = state => ({
-
+  event: state.refresh.event,
 })
 
 // Any actions to map to the component?
@@ -88,11 +109,11 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   itemText: {
-    color: 'red',
     width: '100%',
     padding: 5
   },
   orderList: {
-    width: '100%'
+    width: '100%',
+    height: '100%'
   }
 });

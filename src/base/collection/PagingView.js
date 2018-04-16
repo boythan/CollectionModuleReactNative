@@ -8,17 +8,17 @@ const ViewPropTypes = View.propTypes;
 // create a component
 class PagingView extends Component {
   static propTypes = {
-    mode: ViewPropTypes.number,
-    renderProgress: ViewPropTypes.func,
-    renderErrorView: ViewPropTypes.func,
-    retry: ViewPropTypes.func,
+    // mode: ViewPropTypes.number,
+    // renderProgress: ViewPropTypes.func,
+    // renderErrorView: ViewPropTypes.func,
+    // retry: ViewPropTypes.func,
   }
 
   static defaultProps = {
-    mode: Mode.HIDDEN,
-    renderProgress: null,
-    renderErrorView: null,
-    retry: null,
+    // mode: Mode.HIDDEN,
+    // renderProgress: null,
+    // renderErrorView: null,
+    // retry: null,
   }
 
   /**

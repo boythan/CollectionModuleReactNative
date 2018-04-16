@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Actions, Overlay } from 'react-native-router-flux';
-import { InteractionManager, TouchableOpacity, PixelRatio, Dimensions, Platform, TouchableWithoutFeedback, TouchableNativeFeedback, Animated, Easing, StyleSheet, Image, View, Text, Button, ScrollView, ActivityIndicator } from 'react-native';
+import { InteractionManager, TouchableOpacity, PixelRatio, Dimensions, Platform, TouchableWithoutFeedback, TouchableNativeFeedback, Animated, Easing, StyleSheet, Image, View, Text, Button, ScrollView, ActivityIndicator, Keyboard } from 'react-native';
 import { AppStyles, AppSizes, AppColors } from '@theme'
 import  Messages from '../../../constant/message'
 import Spinner from 'react-native-spinkit';
@@ -172,6 +172,7 @@ class Progress extends Component {
   componentDidMount() {
     InteractionManager.runAfterInteractions(() => {
       this.doTask();
+      Keyboard.dismiss();
     });
   }
 

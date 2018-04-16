@@ -3,18 +3,28 @@ import React, { Component } from 'react';
 import { View, TextInput, Button, Alert, StyleSheet, Keyboard, Text, Linking, TouchableOpacity, FlatList, Image } from 'react-native';
 import { connect } from 'react-redux';
 import Messages from '../../constant/message';
-import { Line, NavBar, WebImage } from '@base'
+import { Line, NavBar, WebImage , ButtonIcon} from '@base'
 
 import { Actions } from 'react-native-router-flux';
 import API from '../../network/API';
 import ListComponent from '../../base/collection/ListComponent'
 import EmptyView from '../../base/collection/EmptyView'
 import PagingView from '../../base/collection/PagingView'
+import EventsType from '@redux/refresh/eventsType';
 
 class ProductScreen extends ListComponent {
   constructor(props) {
     super(props);
 
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // check and refresh list
+    if (nextProps && nextProps.event && nextProps.event.types == EventsType.REFRESH_PRODUCT) {
+      if (!this.props.event || this.props.event.timeUnix != nextProps.event.timeUnix) {
+        this.refresh();
+      }
+    }
   }
   componentDidMount() {
     this.start();
@@ -34,8 +44,8 @@ class ProductScreen extends ListComponent {
           size={30}
           source={{ uri: product.avatar_url }}
           resizeMode='cover' />
-        <View style = {{width : AppSizes.screen.width - 40}}>
-          <View style = {{width : '100%',flexDirection : 'row', justifyContent: 'space-between'}}>
+        <View style={{ width: AppSizes.screen.width - 40 }}>
+          <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between' }}>
             <Text style={styles.itemText}>{product.title}</Text>
             <Text style={styles.itemText}>{product.price}</Text>
           </View>
@@ -56,11 +66,21 @@ class ProductScreen extends ListComponent {
     return res.data;
   }
 
+  onClickAdd() {
+    Actions.createEditProduct();
+  }
+
   //UI RENDER ----------------------------------------------------------------------------------
   render() {
 
     return <View style={styles.container}>
       <NavBar title={Messages.home.product}
+        rightView={<ButtonIcon
+          iconName={'add'}
+          iconColor={AppColors.iconColor}
+          iconSize={AppSizes.iconSize}
+          action={() => this.onClickAdd()}
+        />}
         leftButtonAction={() => Actions.pop()} />
       <FlatList
         style={styles.productList}
@@ -82,7 +102,7 @@ class ProductScreen extends ListComponent {
 
 // Redux
 const mapStateToProps = state => ({
-
+  event: state.refresh.event,
 })
 
 // Any actions to map to the component?
@@ -111,6 +131,6 @@ const styles = StyleSheet.create({
     padding: 5,
     width: '100%',
     alignItems: 'center',
-    backgroundColor : 'white'
+    backgroundColor: 'white'
   }
 });

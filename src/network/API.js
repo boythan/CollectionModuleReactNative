@@ -54,7 +54,31 @@ API.getProducts = () => {
   return API.instance.get('/api/Products')
 }
 
+API.createProduct = (product) => {
+  return API.instance.post(`/api/Products`, product)
+}
+
 API.updateProduct = (product) => {
   return API.instance.put(`/api/Products/${product.id}`, product)
+}
+
+API.deleteProduct = (productId) => {
+  return API.instance.delete(`/api/Products/${productId}`)
+}
+
+API.getOrders = () => {
+  return API.instance.get('/api/Orders')
+}
+
+API.createOrder = (order) => {
+  return API.instance.post(`/api/Orders`, order)
+}
+
+API.updateOrder = (order) => {
+  return API.instance.put(`/api/Orders`, order)
+}
+
+API.deleteOrder = (orderId) => {
+  return API.instance.delete(`/api/Orders/${orderId}`)
 }
 export default API;

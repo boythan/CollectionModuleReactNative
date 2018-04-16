@@ -16,6 +16,7 @@ import OrderScreen from '../component/order/OrderScreen';
 import OrderDetailScreen from '../component/order/OrderDetailScreen';
 import UserProfileScreen from '../component/UserProfileScreen';
 import CreateEditProductScreen from '../component/product/CreateEditProductScreen';
+import CreateEditOrderScreen from '../component/order/CreateEditOrderScreen';
 import Progress from '../base/ui/lightbox/Progress';
 
 
@@ -34,6 +35,7 @@ export default Actions.create(
       <Scene key="orderDetail" component={OrderDetailScreen} />
       <Scene key="userProfile" component={UserProfileScreen} />
       <Scene key="createEditProduct" component={CreateEditProductScreen} />
+      <Scene key="createEditOrder" component={CreateEditOrderScreen} />
       <Scene key="progress" component={Progress} />
     </Stack>
   </Router>

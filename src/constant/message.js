@@ -5,6 +5,7 @@ export default {
   alert: 'Alert',
   error: 'Error',
   success: 'Success',
+  ok : 'Ok',
   login: {
     userName: 'User name',
     password: 'Password',
@@ -14,7 +15,8 @@ export default {
   home: {
     product: 'Product',
     order: 'Order',
-    profile: 'User Profile'
+    profile: 'User Profile',
+    
   },
   emptyView:{
     emptyProduct: 'There is no products',
@@ -25,6 +27,10 @@ export default {
     title : 'Title',
     price : 'Price',
     quantity: 'Quantity'
+  },
+  order :{
+    note: 'Note',
+    total: 'Total'
   }
 
 

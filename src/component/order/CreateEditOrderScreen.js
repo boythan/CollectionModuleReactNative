@@ -15,34 +15,33 @@ import * as ActionsRefresh from '@redux/refresh/actions'
 import EventsType from '@redux/refresh/eventsType';
 import _ from 'lodash'
 
-class CreateEditProductScreen extends Component {
+class CreateEditOrderScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isEditMode: !!props.product,
+      isEditMode: !!props.order,
     };
   }
 
   //UI CONTROL ---------------------------------------------------------------------------------
   onClickDone() {
     const { isEditMode } = this.state;
-    let product = {
-      title: this.title.getTextInputValue(),
-      description: this.description.getTextInputValue(),
-      price: this.price.getTextInputValue(),
-      quantity: this.quantity.getTextInputValue()
+    let order = {
+      note: this.note.getTextInputValue(),
+      total: this.total.getTextInputValue(),
     }
     if(isEditMode){
-      product.id = this.props.product.id
+      order.id = this.props.order.id;
+      order.customerId = this.props.order.customerId;
     }
     if (this.state.isEditMode) {
-      Progress.show(API.updateProduct, [product], res => {
+      Progress.show(API.updateOrder, [order], res => {
         if (res.data) {
           this.doSuccessEdit(res);
         }
       })
     } else {
-      Progress.show(API.createProduct, [product], res => {
+      Progress.show(API.createOrder, [order], res => {
         if (res.data) {
           this.doSuccessEdit(res);
         }
@@ -53,14 +52,15 @@ class CreateEditProductScreen extends Component {
   }
 
   doSuccessEdit(res) {
-    this.props.refresh(EventsType.REFRESH_PRODUCT, _.now());
+    this.props.refresh(EventsType.REFRESH_ORDER, _.now());
     Alert.alert(Messages.success, '',
       [
         {
           text: Messages.ok, onPress: () => {
             Actions.pop();
-            if(this.state.isEditMode){
-              Actions.refresh({ product: res.data })
+
+            if (this.state.isEditMode) {
+              Actions.refresh({ order: res.data })
             }
           }
         },
@@ -69,10 +69,10 @@ class CreateEditProductScreen extends Component {
   }
   //UI RENDER ----------------------------------------------------------------------------------
   render() {
-    const { product } = this.props;
+    const { order } = this.props;
     const { isEditMode } = this.state;
     return <View style={styles.container}>
-      <NavBar title={Messages.home.product}
+      <NavBar title={Messages.home.order}
         leftButtonAction={() => Actions.pop()}
         rightView={<View style={{ flexDirection: 'row' }}>
           <ButtonIcon
@@ -91,53 +91,27 @@ class CreateEditProductScreen extends Component {
         />
       </View> */}
       <InputField
-        ref={(ref) => { this.title = ref }}
+        ref={(ref) => { this.note = ref }}
         containerStyle={styles.textInput}
         contentInputProps={{
           multiline: true,
         }}
-        title={Messages.product.title}
-        hintContent={Messages.product.title}
+        title={Messages.order.note}
+        hintContent={Messages.order.note}
         editable={true}
-        content={isEditMode ? product.title : ''}
+        content={isEditMode ? order.note : ''}
       />
       <Line />
       <InputField
-        ref={(ref) => { this.description = ref }}
+        ref={(ref) => { this.total = ref }}
         containerStyle={styles.textInput}
         contentInputProps={{
           multiline: true,
         }}
-        title={Messages.product.description}
-        hintContent={Messages.product.description}
+        title={Messages.order.total}
+        hintContent={Messages.order.total}
         editable={true}
-        content={isEditMode ? product.description : ''}
-      />
-      <Line />
-      <InputField
-        ref={(ref) => { this.price = ref }}
-        containerStyle={styles.textInput}
-        contentInputProps={{
-          multiline: true,
-          keyboardType: 'numeric'
-        }}
-        title={Messages.product.price}
-        hintContent={Messages.product.price}
-        editable={true}
-        content={isEditMode ? product.price : ''}
-      />
-      <Line />
-      <InputField
-        ref={(ref) => { this.quantity = ref }}
-        containerStyle={styles.textInput}
-        contentInputProps={{
-          multiline: true,
-          keyboardType: 'numeric'
-        }}
-        title={Messages.product.quantity}
-        hintContent={Messages.product.quantity}
-        editable={true}
-        content={isEditMode ? product.quantity : ''}
+        content={isEditMode ? order.total : ''}
       />
       <Line />
     </View>
@@ -155,7 +129,7 @@ const mapDispatchToProps = {
 }
 
 //Connect everything
-export default connect(mapStateToProps, mapDispatchToProps)(CreateEditProductScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateEditOrderScreen);
 
 const styles = StyleSheet.create({
   container: {

@@ -1,0 +1,5 @@
+export default {
+  REFRESH_PRODUCT : 'REFRESH_PRODUCT',
+  REFRESH_ORDER : 'REFRESH_ORDER'
+}
+

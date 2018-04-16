@@ -10,9 +10,9 @@ const ViewPropTypes = View.propTypes;
 class EmptyView extends Component {
   static propTypes = {
     mode: PropTypes.number,
-    renderEmptyView: PropTypes.func,
-    renderProgress: PropTypes.func,
-    renderErrorView: PropTypes.func,
+    // renderEmptyView: PropTypes.func,
+    // renderProgress: PropTypes.func,
+    // renderErrorView: PropTypes.func,
     retry: PropTypes.func,
     emptyText: PropTypes.string,
     filterEmptyText: PropTypes.string,
@@ -20,9 +20,9 @@ class EmptyView extends Component {
 
   static defaultProps = {
     mode: CollectionMode.HIDDEN,
-    renderEmptyView: null,
-    renderProgress: null,
-    renderErrorView: null,
+    // renderEmptyView: null,
+    // renderProgress: null,
+    // renderErrorView: null,
     retry: null,
     emptyText: 'No result',
     filterEmptyText: 'Sorry, there are no results.',

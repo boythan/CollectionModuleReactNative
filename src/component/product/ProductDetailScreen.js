@@ -7,11 +7,13 @@ import Messages from '../../constant/message';
 
 import { Actions } from 'react-native-router-flux';
 import API from '../../network/API';
-import { NavBar, WebImage } from '@base'
+import { NavBar, WebImage, Progress } from '@base'
 import { InputField, Line } from '../../base';
 import ButtonIcon from '../../base/ui/button/ButtonIcon';
-import { AppSizes, AppColors } from '@theme'
-
+import { AppSizes, AppColors } from '@theme';
+import * as ActionsRefresh from '@redux/refresh/actions'
+import EventsType from '@redux/refresh/eventsType';
+import _ from 'lodash'
 class ProductDetailScreen extends Component {
   constructor(props) {
     super(props);
@@ -25,6 +27,23 @@ class ProductDetailScreen extends Component {
     Actions.createEditProduct({ product: this.props.product });
   }
 
+  onClickDeleteProduct() {
+    Progress.show(API.deleteProduct, this.props.product.id, res => {
+      if (res.data) {
+        this.onDeleteSuccess();
+      }
+    })
+  }
+  onDeleteSuccess() {
+    this.props.refresh(EventsType.REFRESH_PRODUCT, _.now());
+    Alert.alert(Messages.success, '', [
+      {
+        text: Messages.ok, onPress: () => {
+          Actions.pop();
+        }
+      },
+    ])
+  }
   //UI RENDER ----------------------------------------------------------------------------------
   render() {
     const { product } = this.props;
@@ -37,6 +56,12 @@ class ProductDetailScreen extends Component {
             iconColor={AppColors.iconColor}
             iconSize={AppSizes.iconSize}
             action={() => this.onClickEdit()}
+          />
+          <ButtonIcon
+            iconName={'delete'}
+            iconColor={AppColors.iconColor}
+            iconSize={AppSizes.iconSize}
+            action={() => this.onClickDeleteProduct()}
           />
         </View>} />
 
@@ -101,6 +126,7 @@ const mapStateToProps = state => ({
 
 // Any actions to map to the component?
 const mapDispatchToProps = {
+  refresh: ActionsRefresh.refresh
 }
 
 //Connect everything
