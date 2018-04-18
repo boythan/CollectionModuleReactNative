@@ -7,21 +7,40 @@ import Messages from '../../constant/message';
 
 import { Actions } from 'react-native-router-flux';
 import API from '../../network/API';
-import { NavBar, WebImage, Progress } from '@base'
-import { InputField, Line } from '../../base';
+import { NavBar, WebImage, Progress, MediaListView } from '@base'
+import { InputField, Line, ScrollableTabScreen } from '../../base';
 import ButtonIcon from '../../base/ui/button/ButtonIcon';
 import { AppSizes, AppColors } from '@theme';
 import * as ActionsRefresh from '@redux/refresh/actions'
 import EventsType from '@redux/refresh/eventsType';
-import _ from 'lodash'
-class ProductDetailScreen extends Component {
+import _ from 'lodash';
+import { TabViewAnimated, TabBar, SceneMap } from 'react-native-tab-view';
+
+
+class ProductDetailScreen extends ScrollableTabScreen {
   constructor(props) {
     super(props);
     this.state = {
-
+      ...this.state,
+      productImage: []
     };
   }
 
+  componentDidMount() {
+
+    this.getImageList();
+
+  }
+
+  getImageList() {
+    API.getProductImages(this.props.product.id).then(res => {
+      if (res.data) {
+        this.setState({ productImage: res.data }, () => {
+          this._calculateTabs();
+        })
+      }
+    })
+  }
   //UI CONTROL ---------------------------------------------------------------------------------
   onClickEdit() {
     Actions.createEditProduct({ product: this.props.product });
@@ -44,7 +63,28 @@ class ProductDetailScreen extends Component {
       },
     ])
   }
+
+  handleTabChanged = (index) => {
+    this.handleIndexChange(index);
+  }
+
+  tabs = () => {
+    if (_.isEmpty(this.state.productImage)) return Promise.resolve([]);
+    let contentViews = _.map(this.state.productImage, (item, index) => {
+      return { component: ViewMediaDetailScreen, title: item.id ? item.id.toString() : uuidV4(), props: { data: item, pageIndex: index } }
+    });
+    return Promise.resolve(contentViews)
+  }
+
   //UI RENDER ----------------------------------------------------------------------------------
+
+  renderHeader = () => {
+    return (
+      <View />
+    )
+  }
+
+
   render() {
     const { product } = this.props;
     return <View style={styles.container}>
@@ -65,13 +105,16 @@ class ProductDetailScreen extends Component {
           />
         </View>} />
 
-      <View style={styles.containerImage}>
-        <WebImage
-          source={{ uri: product.avatar_url }}
-          resizeMode='cover'
-          containerStyle={{ width: '100%', height: '100%' }}
-        />
-      </View>
+
+      <TabViewAnimated
+        style={styles.containerImage}
+        navigationState={this.state.navigation}
+        renderScene={this.renderScene}
+        renderHeader={this.renderHeader}
+        onIndexChange={this.handleTabChanged}
+        lazy={true}
+      />
+
       <InputField
         containerStyle={styles.textInput}
         contentInputProps={{
@@ -115,6 +158,12 @@ class ProductDetailScreen extends Component {
         content={product.quantity}
       />
       <Line />
+      {/* <MediaListView
+        data={this.state.productImage}
+        didSelect={this.imageSelected}
+      /> */}
+      <Line />
+
     </View>
   }
 };
@@ -151,9 +200,27 @@ const styles = StyleSheet.create({
   },
   containerImage: {
     width: '100%',
-    height: 150,
+    height: 200,
   },
   textInput: {
     backgroundColor: 'white',
   },
+  item: {
+    width: '100%',
+    height: 200,
+  }
 });
+
+
+class ViewMediaDetailScreen extends Component {
+  render() {
+    return (<TouchableOpacity activeOpacity={1} style={styles.item} onPress={() => {
+
+    }}>
+      <WebImage
+        containerStyle={{ position: 'absolute',width: '100%', height: '100%' }}
+        source={{ uri: this.props.data.url }}
+      />
+    </TouchableOpacity>)
+  }
+}

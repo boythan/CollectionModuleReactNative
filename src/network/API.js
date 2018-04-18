@@ -10,7 +10,7 @@ import _ from 'lodash';
 
 const getInstance = (env) => {
   const instance = axios.create({
-    baseURL: 'http://139.59.218.140:3000',
+    baseURL: 'http://206.189.32.12:3000',
     timeout: 30000,
   });
 
@@ -80,5 +80,9 @@ API.updateOrder = (order) => {
 
 API.deleteOrder = (orderId) => {
   return API.instance.delete(`/api/Orders/${orderId}`)
+}
+
+API.getProductImages = (productId) => {
+  return API.instance.get(`/api/Products/${productId}/images`)
 }
 export default API;
