@@ -18,6 +18,7 @@ import UserProfileScreen from '../component/UserProfileScreen';
 import CreateEditProductScreen from '../component/product/CreateEditProductScreen';
 import CreateEditOrderScreen from '../component/order/CreateEditOrderScreen';
 import Progress from '../base/ui/lightbox/Progress';
+import CameraViewScreen from '../component/CameraViewScreen';
 
 
 /* Routes ==================================================================== */
@@ -37,6 +38,7 @@ export default Actions.create(
       <Scene key="createEditProduct" component={CreateEditProductScreen} />
       <Scene key="createEditOrder" component={CreateEditOrderScreen} />
       <Scene key="progress" component={Progress} />
+      <Scene key="camera" component={CameraViewScreen} />
     </Stack>
   </Router>
 );

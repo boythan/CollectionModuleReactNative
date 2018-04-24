@@ -7,10 +7,14 @@ import AccessTokenInterceptor from './interceptors/accessToken';
 import UnauthorizeInterceptor from './interceptors/unauthorize';
 
 import _ from 'lodash';
+import RNFetchBlob from 'react-native-fetch-blob'
 
+var RNFS = require('react-native-fs');
+
+const BASE_URL = 'http://206.189.32.12:3000';
 const getInstance = (env) => {
   const instance = axios.create({
-    baseURL: 'http://206.189.32.12:3000',
+    baseURL: BASE_URL,
     timeout: 30000,
   });
 
@@ -85,4 +89,33 @@ API.deleteOrder = (orderId) => {
 API.getProductImages = (productId) => {
   return API.instance.get(`/api/Products/${productId}/images`)
 }
+
+API.uploadImage = (file) => {
+  return getBase64(file.uri).then(data => {
+    return RNFetchBlob.fetch('POST', BASE_URL + '/api/Containers/warehouse/upload', {
+      Authorization: "Bearer access-token",
+      otherHeader: "foo",
+      'Content-Type': 'multipart/form-data',
+    }, [{ name: 'avatar', filename: getFileName(file.uri), data: data }]);
+  })
+}
+
 export default API;
+
+async function getBase64(uri) {
+  const filePath = RNFS.MainBundlePath + uri;
+  return await RNFS.readFile(uri, 'base64')
+}
+
+getFileName = (path) => {
+  if (!path) return '';
+  const startIndex = (path.indexOf('\\') >= 0 ? path.lastIndexOf('\\') : path.lastIndexOf('/'));
+  let filename = path.substring(startIndex);
+  if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+    filename = filename.substring(1);
+  }
+  return filename;
+}
+
+
+

@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { View, TextInput, Button, Alert, StyleSheet, Keyboard, Text, Linking, TouchableOpacity } from 'react-native';
+import { View, TextInput, Button, Alert, StyleSheet, Keyboard, Text, Linking, TouchableOpacity, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import Messages from '../../constant/message';
 
@@ -16,34 +16,34 @@ import EventsType from '@redux/refresh/eventsType';
 import _ from 'lodash';
 import { TabViewAnimated, TabBar, SceneMap } from 'react-native-tab-view';
 
+const initialLayout = {
+  height: 0,
+  width: AppSizes.screenWidth,
+};
 
-class ProductDetailScreen extends ScrollableTabScreen {
+class ProductDetailScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
       ...this.state,
-      productImage: []
+      productImage:  []
     };
   }
 
   componentDidMount() {
-
     this.getImageList();
-
   }
 
   getImageList() {
     API.getProductImages(this.props.product.id).then(res => {
       if (res.data) {
-        this.setState({ productImage: res.data }, () => {
-          this._calculateTabs();
-        })
+        this.setState({ productImage: res.data })
       }
     })
   }
   //UI CONTROL ---------------------------------------------------------------------------------
   onClickEdit() {
-    Actions.createEditProduct({ product: this.props.product });
+    Actions.createEditProduct({ product: this.props.product, productImages: this.state.productImage });
   }
 
   onClickDeleteProduct() {
@@ -64,30 +64,14 @@ class ProductDetailScreen extends ScrollableTabScreen {
     ])
   }
 
-  handleTabChanged = (index) => {
-    this.handleIndexChange(index);
+  imageSelected(item, index) {
+    console.log(item);
   }
-
-  tabs = () => {
-    if (_.isEmpty(this.state.productImage)) return Promise.resolve([]);
-    let contentViews = _.map(this.state.productImage, (item, index) => {
-      return { component: ViewMediaDetailScreen, title: item.id ? item.id.toString() : uuidV4(), props: { data: item, pageIndex: index } }
-    });
-    return Promise.resolve(contentViews)
-  }
-
   //UI RENDER ----------------------------------------------------------------------------------
-
-  renderHeader = () => {
-    return (
-      <View />
-    )
-  }
-
 
   render() {
     const { product } = this.props;
-    return <View style={styles.container}>
+    return <ScrollView style={styles.container} scrollEnabled={false} contentContainerStyle={{ flex: 1 }}>
       <NavBar title={Messages.home.product}
         leftButtonAction={() => Actions.pop()}
         rightView={<View style={{ flexDirection: 'row' }}>
@@ -104,16 +88,6 @@ class ProductDetailScreen extends ScrollableTabScreen {
             action={() => this.onClickDeleteProduct()}
           />
         </View>} />
-
-
-      <TabViewAnimated
-        style={styles.containerImage}
-        navigationState={this.state.navigation}
-        renderScene={this.renderScene}
-        renderHeader={this.renderHeader}
-        onIndexChange={this.handleTabChanged}
-        lazy={true}
-      />
 
       <InputField
         containerStyle={styles.textInput}
@@ -157,14 +131,14 @@ class ProductDetailScreen extends ScrollableTabScreen {
         editable={false}
         content={product.quantity}
       />
-      <Line />
-      {/* <MediaListView
+      <Line style={{ marginBottom: 20 }} />
+      <Text style= {styles.textInput}>{Messages.product.attachment}</Text>
+      <MediaListView
         data={this.state.productImage}
-        didSelect={this.imageSelected}
-      /> */}
+        didSelect={(item, index) => this.imageSelected(item, index)}
+      />
       <Line />
-
-    </View>
+    </ScrollView>
   }
 };
 
@@ -187,20 +161,9 @@ const styles = StyleSheet.create({
     height: '100%',
     backgroundColor: 'white'
   },
-  buttonText: {
-    height: 40,
-    width: 150,
-    padding: 10,
-    marginTop: 10,
-    marginBottom: 10,
-    backgroundColor: 'grey',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 3
-  },
   containerImage: {
-    width: '100%',
-    height: 200,
+    // width: '100%',
+    // height: '30%',
   },
   textInput: {
     backgroundColor: 'white',
@@ -210,17 +173,3 @@ const styles = StyleSheet.create({
     height: 200,
   }
 });
-
-
-class ViewMediaDetailScreen extends Component {
-  render() {
-    return (<TouchableOpacity activeOpacity={1} style={styles.item} onPress={() => {
-
-    }}>
-      <WebImage
-        containerStyle={{ position: 'absolute',width: '100%', height: '100%' }}
-        source={{ uri: this.props.data.url }}
-      />
-    </TouchableOpacity>)
-  }
-}

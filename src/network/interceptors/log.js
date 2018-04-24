@@ -30,10 +30,10 @@ export default LogInterceptor = {
       const config = error.config;
       const response = error.response;
       if (response) {
-        console.log(`<<< ${response.status} ${config.method}: ${config.url}`);
+        // console.log(`<<< ${response.status} ${config.method}: ${config.url}`);
         console.log(response);
       } else {
-        console.log(`<<< ${config.method}: ${config.url}`);
+        // console.log(`<<< ${config.method}: ${config.url}`);
         console.log('network log error', error);
       }
     }

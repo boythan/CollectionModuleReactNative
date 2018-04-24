@@ -8,7 +8,7 @@ import Messages from '../../constant/message';
 import { Actions } from 'react-native-router-flux';
 import API from '../../network/API';
 import { NavBar, WebImage } from '@base'
-import { InputField, Line, Progress } from '../../base';
+import { InputField, Line, Progress, MediaListView } from '../../base';
 import ButtonIcon from '../../base/ui/button/ButtonIcon';
 import { AppSizes, AppColors } from '@theme';
 import * as ActionsRefresh from '@redux/refresh/actions'
@@ -20,6 +20,8 @@ class CreateEditProductScreen extends Component {
     super(props);
     this.state = {
       isEditMode: !!props.product,
+      productImage: props.productImages ? props.productImages : []
+
     };
   }
 
@@ -32,7 +34,7 @@ class CreateEditProductScreen extends Component {
       price: this.price.getTextInputValue(),
       quantity: this.quantity.getTextInputValue()
     }
-    if(isEditMode){
+    if (isEditMode) {
       product.id = this.props.product.id
     }
     if (this.state.isEditMode) {
@@ -59,13 +61,41 @@ class CreateEditProductScreen extends Component {
         {
           text: Messages.ok, onPress: () => {
             Actions.pop();
-            if(this.state.isEditMode){
+            if (this.state.isEditMode) {
               Actions.refresh({ product: res.data })
             }
           }
         },
       ],
     );
+  }
+
+  imageSelected(item, index) {
+
+  }
+
+  clickAddMoreMedia() {
+    Actions.camera({ callback: this.callBackCamera.bind(this) })
+  }
+
+  callBackCamera(data) {
+    let medias = this.state.productImage;
+    medias.push(data);
+    this.setState({ productImage: medias }, () => {
+      this.uploadImage(data)
+    });
+    console.log(data)
+  }
+
+  uploadImage(data) {
+    // Progress.show(API.uploadImage, [data.uri], res => {
+    //   console.log(res);
+    // })
+    API.uploadImage(data).then(res => {
+      console.log(res);
+    }).catch(err => {
+      console.log(err);
+    })
   }
   //UI RENDER ----------------------------------------------------------------------------------
   render() {
@@ -138,6 +168,15 @@ class CreateEditProductScreen extends Component {
         hintContent={Messages.product.quantity}
         editable={true}
         content={isEditMode ? product.quantity : ''}
+      />
+      <Line />
+      <Text style={styles.textInput}>{Messages.product.attachment}</Text>
+
+      <MediaListView
+        data={this.state.productImage}
+        didSelect={(item, index) => this.imageSelected(item, index)}
+        enableAddMore={true}
+        onClickAdd={() => { this.clickAddMoreMedia() }}
       />
       <Line />
     </View>

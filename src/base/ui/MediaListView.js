@@ -17,7 +17,9 @@ const styles = StyleSheet.create({
     width: 90,
     height: 90,
     margin: 4,
-    backgroundColor: AppColors.addMoreButton
+    backgroundColor: AppColors.addMoreButton,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   list: {
     width: '100%',
@@ -42,11 +44,16 @@ const styles = StyleSheet.create({
 export default class MediaListView extends Component {
 
   render() {
+    let medias = [...this.props.data];
+
+    if (this.props.enableAddMore) {
+      medias.unshift({ isAddMore: true });
+    }
     return (
       <View style={styles.container}>
         <FlatList
           renderItem={this.renderCell}
-          data={this.props.data}
+          data={medias}
           keyExtractor={this.keyExtractor}
           horizontal={true}
           style={styles.list}
@@ -55,16 +62,25 @@ export default class MediaListView extends Component {
   }
 
   renderCell = ({ item, index }) => {
+    const { isAddMore } = item;
     return (
       <TouchableOpacity activeOpacity={1} style={styles.item} onPress={() => {
         this.props.didSelect(item, index)
       }}>
-        <WebImage
-          containerStyle={{ position: 'absolute', width: '100%', height: '100%' }}
-          source={{ uri: item.url }}
-          // backupSource={{ uri: API.media.getImagePath(item.url, MediaType.other) }}
-          resizeMode='cover'
-        />
+        {isAddMore ?
+          <ButtonIcon
+            iconName={'add'}
+            iconColor={AppColors.iconColor}
+            iconSize={50}
+            action={() => this.props.onClickAdd()}
+          /> :
+          <WebImage
+            containerStyle={{ position: 'absolute', width: '100%', height: '100%' }}
+            source={{ uri: item.url || item.uri }}
+            // backupSource={{ uri: API.media.getImagePath(item.url, MediaType.other) }}
+            resizeMode='cover'
+          />
+        }
       </TouchableOpacity>
     )
   }

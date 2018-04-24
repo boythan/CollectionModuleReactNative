@@ -26,7 +26,8 @@ export default {
     description: 'Description',
     title : 'Title',
     price : 'Price',
-    quantity: 'Quantity'
+    quantity: 'Quantity',
+    attachment: 'Attachments'
   },
   order :{
     note: 'Note',

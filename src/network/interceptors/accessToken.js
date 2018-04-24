@@ -3,7 +3,7 @@ export default AccessTokenInterceptor = {
   addAccessToken: (config) => {
     const accessToken = AccessTokenManager.getAccessToken();
     if (accessToken) {
-      const headers = { ...config.headers, 'X-Auth-Token': accessToken };
+      const headers = { ...config.headers, 'X-Auth-Token': accessToken, 'Content-Type': 'application/json' };
       config.headers = headers;
     }
     return config;
