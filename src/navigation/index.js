@@ -8,7 +8,6 @@ import { Actions, Scene, Stack, Router } from 'react-native-router-flux';
 import HomeScreen from '../component/HomeScreen.js';
 import SplashScreen from '../component/SplashScreen.js';
 import BarCodeScreen from '../component/BarCodeScreen';
-import QRCodeScreen from '../component/QRCodeScreen';
 import LoginScreen from '../component/LoginScreen';
 import ProductScreen from '../component/product/ProductScreen';
 import ProductDetailScreen from '../component/product/ProductDetailScreen';
@@ -27,7 +26,6 @@ export default Actions.create(
     <Stack key="root" hideNavBar panHandlers={null}>
       <Scene key="splash" component={SplashScreen} />
       <Scene key="home" component={HomeScreen} />
-      <Scene key="qrcode" component={QRCodeScreen} />
       <Scene key="barcode" component={BarCodeScreen} />
       <Scene key="login" component={LoginScreen} />
       <Scene key="product" component={ProductScreen} />
