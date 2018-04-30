@@ -11,7 +11,7 @@ import RNFetchBlob from 'react-native-fetch-blob'
 
 var RNFS = require('react-native-fs');
 
-const BASE_URL = 'http://206.189.32.12:3000';
+const BASE_URL = 'http://159.89.209.249:3000/';
 const getInstance = (env) => {
   const instance = axios.create({
     baseURL: BASE_URL,

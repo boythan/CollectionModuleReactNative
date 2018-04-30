@@ -1,10 +1,12 @@
 /**
  * App Theme - Fonts
  */
-import { Platform } from 'react-native';
+import {Platform} from 'react-native';
 
 function lineHeight(fontSize) {
-  const multiplier = (fontSize > 20) ? 0.1 : 0.33;
+  const multiplier = (fontSize > 20)
+    ? 0.1
+    : 0.33;
   return parseInt(fontSize + (fontSize * multiplier), 10);
 }
 
@@ -13,12 +15,12 @@ const base = {
   lineHeight: lineHeight(14),
   ...Platform.select({
     ios: {
-      family: 'Lato-Regular',
+      family: 'Lato-Regular'
     },
     android: {
-      family: 'LatoRegular',
-    },
-  }),
+      family: 'LatoRegular'
+    }
+  })
 };
 
 const semibold = {
@@ -26,12 +28,12 @@ const semibold = {
   lineHeight: lineHeight(14),
   ...Platform.select({
     ios: {
-      family: 'Lato-Semibold',
+      family: 'Lato-Semibold'
     },
     android: {
-      family: 'LatoSemibold',
-    },
-  }),
+      family: 'LatoSemibold'
+    }
+  })
 };
 
 const boldItalic = {
@@ -39,12 +41,12 @@ const boldItalic = {
   lineHeight: lineHeight(14),
   ...Platform.select({
     ios: {
-      family: 'Lato-BoldItalic',
+      family: 'Lato-BoldItalic'
     },
     android: {
-      family: 'LatoSemibold',
-    },
-  }),
+      family: 'LatoSemibold'
+    }
+  })
 }
 
 const italic = {
@@ -52,12 +54,12 @@ const italic = {
   lineHeight: lineHeight(14),
   ...Platform.select({
     ios: {
-      family: 'Lato Italic',
+      family: 'Lato Italic'
     },
     android: {
-      family: 'LatoItalic',
-    },
-  }),
+      family: 'LatoItalic'
+    }
+  })
 }
 
 const bold = {
@@ -65,12 +67,12 @@ const bold = {
   lineHeight: lineHeight(14),
   ...Platform.select({
     ios: {
-      family: 'Lato-Bold',
+      family: 'Lato-Bold'
     },
     android: {
-      family: 'LatoBold',
-    },
-  }),
+      family: 'LatoBold'
+    }
+  })
 };
 
 const black = {
@@ -78,12 +80,12 @@ const black = {
   lineHeight: lineHeight(14),
   ...Platform.select({
     ios: {
-      family: 'Lato-Black',
+      family: 'Lato-Black'
     },
     android: {
-      family: 'LatoBlack',
-    },
-  }),
+      family: 'LatoBlack'
+    }
+  })
 };
 
 const light = {
@@ -91,26 +93,58 @@ const light = {
   lineHeight: lineHeight(14),
   ...Platform.select({
     ios: {
-      family: 'Lato-Light',
+      family: 'Lato-Light'
     },
     android: {
-      family: 'LatoLight',
-    },
-  }),
+      family: 'LatoLight'
+    }
+  })
 };
 
 export default AppFonts = {
-  base: { ...base },
-  bold: { ...bold },
-  semibold: { ...semibold },
-  italic: { ...italic },
-  boldItalic: { ...boldItalic },
-  black: { ...black },
-  light: { ...light },
-  h1: { ...bold, size: base.size * 1.75, lineHeight: lineHeight(base.size * 2) },
-  h2: { ...bold, size: base.size * 1.5, lineHeight: lineHeight(base.size * 1.75) },
-  h3: { ...semibold, size: base.size * 1.25, lineHeight: lineHeight(base.size * 1.5) },
-  h4: { ...base, size: base.size * 1.1, lineHeight: lineHeight(base.size * 1.25) },
-  h5: { ...base },
-  lineHeight: (fontSize) => lineHeight(fontSize),
+  base: {
+    ...base
+  },
+  bold: {
+    ...bold
+  },
+  semibold: {
+    ...semibold
+  },
+  italic: {
+    ...italic
+  },
+  boldItalic: {
+    ...boldItalic
+  },
+  black: {
+    ...black
+  },
+  light: {
+    ...light
+  },
+  h1: {
+    ...bold,
+    size: base.size * 1.75,
+    lineHeight: lineHeight(base.size * 2)
+  },
+  h2: {
+    ...bold,
+    size: base.size * 1.5,
+    lineHeight: lineHeight(base.size * 1.75)
+  },
+  h3: {
+    ...semibold,
+    size: base.size * 1.25,
+    lineHeight: lineHeight(base.size * 1.5)
+  },
+  h4: {
+    ...base,
+    size: base.size * 1.1,
+    lineHeight: lineHeight(base.size * 1.25)
+  },
+  h5: {
+    ...base
+  },
+  lineHeight: (fontSize) => lineHeight(fontSize)
 }

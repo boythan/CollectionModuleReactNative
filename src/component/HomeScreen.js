@@ -1,24 +1,33 @@
-
-import React, { Component } from 'react';
-import { View, TextInput, Button, Alert, StyleSheet, Keyboard, Text, Linking, TouchableOpacity } from 'react-native';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {
+  View,
+  TextInput,
+  Button,
+  Alert,
+  StyleSheet,
+  Keyboard,
+  Text,
+  Linking,
+  TouchableOpacity
+} from 'react-native';
+import {connect} from 'react-redux';
 import Messages from '../constant/message';
 
-
-import { Actions } from 'react-native-router-flux';
+import {Actions} from 'react-native-router-flux';
 import StringUtils from '../utils/StringUtils'
 import API from '../network/API';
 
 class HomeScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-    };
+    this.state = {};
   }
 
-  //UI CONTROL ---------------------------------------------------------------------------------
-
-  //UI RENDER ----------------------------------------------------------------------------------
+  // UI CONTROL
+  // -----------------------------------------------------------------------------
+  // - --- UI RENDER
+  // -----------------------------------------------------------------------------
+  // - ----
   render() {
 
     return <View style={styles.container}>
@@ -30,24 +39,27 @@ class HomeScreen extends Component {
         <Text>{Messages.home.order}</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.buttonText} onPress={() => Actions.userProfile()}>
+      <TouchableOpacity
+        style={styles.buttonText}
+        onPress={() => Actions.userProfile()}>
         <Text>{Messages.home.profile}</Text>
       </TouchableOpacity>
 
+      <TouchableOpacity
+        style={styles.buttonText}
+        onPress={() => Actions.camera()}>
+        <Text>{`Camera`}</Text>
+      </TouchableOpacity>
     </View>
-
 
   }
 };
 
 // Redux
-const mapStateToProps = state => ({
-
-})
+const mapStateToProps = state => ({})
 
 // Any actions to map to the component?
-const mapDispatchToProps = {
-}
+const mapDispatchToProps = {}
 
 //Connect everything
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

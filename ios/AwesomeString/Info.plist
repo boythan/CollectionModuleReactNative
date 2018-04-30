@@ -53,6 +53,14 @@
 	</dict>
 	<key>UIAppFonts</key>
 	<array>
+		<string>LatoSemiboldItalic.ttf</string>
+		<string>LatoSemibold.ttf</string>
+		<string>LatoLight.ttf</string>
+		<string>LatoItalic.ttf</string>
+		<string>LatoBoldItalic.ttf</string>
+		<string>LatoBlack.ttf</string>
+		<string>LatoBold.ttf</string>
+		<string>LatoRegular.ttf</string>
 		<string>Entypo.ttf</string>
 		<string>EvilIcons.ttf</string>
 		<string>Feather.ttf</string>

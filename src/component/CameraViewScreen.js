@@ -1,14 +1,20 @@
-import React, { Component } from 'react';
-import { View, StyleSheet, Text, Button, TouchableOpacity, Alert } from 'react-native';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {
+  View,
+  StyleSheet,
+  Text,
+  Button,
+  TouchableOpacity,
+  Alert
+} from 'react-native';
+import {connect} from 'react-redux';
 import Messages from '../constant/message';
 
-import { Actions } from 'react-native-router-flux';
+import {Actions} from 'react-native-router-flux';
 
-import { ButtonIcon } from '../base';
-import { RNCamera } from 'react-native-camera';
-import { Icon } from 'react-native-elements'
-
+import {ButtonIcon} from '../base';
+import {RNCamera} from 'react-native-camera';
+import {Icon} from 'react-native-elements'
 
 class CameraViewScreen extends Component {
   constructor(props) {
@@ -16,33 +22,37 @@ class CameraViewScreen extends Component {
 
   }
 
-  //UI CONTROL ---------------------------------------------------------------------------------
+  // UI CONTROL
+  // -----------------------------------------------------------------------------
+  // - ---
 
-  onClickCapture = async () => {
+  onClickCapture = async() => {
     try {
-      const data = await this.camera.takePictureAsync();
-      this.props.callback(data);
+      const data = await this
+        .camera
+        .takePictureAsync();
+      this
+        .props
+        .callback(data);
       Actions.pop();
     } catch (err) {
       console.log('err: ', err);
     }
   };
 
-  //UI RENDER ----------------------------------------------------------------------------------
+  // UI RENDER
+  // -----------------------------------------------------------------------------
+  // - ----
   render() {
     return <View style={styles.container}>
 
       <RNCamera
         ref={cam => {
-          this.camera = cam;
-        }}
-        style={styles.preview} />
+        this.camera = cam;
+      }}
+        style={styles.preview}/>
       <TouchableOpacity style={styles.iconCapture} onPress={this.onClickCapture}>
-        <Icon
-
-          name={'camera-alt'}
-          color={AppColors.iconColor}
-          size={40} />
+        <Icon name={'camera-alt'} color={AppColors.iconColor} size={40}/>
       </TouchableOpacity>
 
     </View>
@@ -50,13 +60,10 @@ class CameraViewScreen extends Component {
 };
 
 // Redux
-const mapStateToProps = state => ({
-})
+const mapStateToProps = state => ({})
 
 // Any actions to map to the component?
-const mapDispatchToProps = {
-
-}
+const mapDispatchToProps = {}
 
 //Connect everything
 export default connect(mapStateToProps, mapDispatchToProps)(CameraViewScreen);

@@ -3829,13 +3829,6 @@ react-native-permissions@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-1.1.1.tgz#4876004681ff8556454613d85249b01baff9b35b"
 
-react-native-qrcode-scanner@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/react-native-qrcode-scanner/-/react-native-qrcode-scanner-1.0.1.tgz#96b18d8058f4b472bda4b34f8a08fddbc33d50eb"
-  dependencies:
-    prop-types "^15.5.10"
-    react-native-permissions "^1.1.1"
-
 react-native-router-flux@^4.0.0-beta.28:
   version "4.0.0-beta.30"
   resolved "https://registry.yarnpkg.com/react-native-router-flux/-/react-native-router-flux-4.0.0-beta.30.tgz#7cf268b7ad527ce0b06e0101a3d730bfa165a3c6"

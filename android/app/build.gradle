@@ -141,6 +141,11 @@ dependencies {
     compile project(':react-native-spinkit')
     compile project(':react-native-fs')
     compile project(':react-native-fetch-blob')
+    compile project(':react-native-camera')
+    compile project(':react-native-vector-icons')
+    compile project(':react-native-spinkit')
+    compile project(':react-native-fs')
+    compile project(':react-native-fetch-blob')
 
 
     api fileTree(include: ['*.jar'], dir: 'libs')

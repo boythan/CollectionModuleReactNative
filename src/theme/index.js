@@ -3,4 +3,4 @@ import AppSizes from './sizes';
 import AppFonts from './fonts';
 import AppStyles from './styles';
 
-export { AppColors, AppFonts, AppSizes, AppStyles }
+export {AppColors, AppFonts, AppSizes, AppStyles}
