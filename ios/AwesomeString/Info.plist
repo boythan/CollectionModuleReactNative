@@ -2,6 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Lato-SemiboldItalic</key>
+	<string>LatoSemiboldItalic.ttf</string>
+	<key>Lato-Semibold</key>
+	<string>LatoSemibold.ttf</string>
+	<key>Lato-Regular</key>
+	<string>LatoRegular.ttf</string>
+	<key>Lato-Light</key>
+	<string>LatoLight.ttf</string>
+	<key>Lato-Italic</key>
+	<string>LatoItalic.ttf</string>
+	<key>Lato-BoldItalic</key>
+	<string>LatoBoldItalic.ttf</string>
+	<key>Lato-Bold</key>
+	<string>LatoBold.ttf</string>
+	<key>Lato-Black</key>
+	<string>LatoBlack.ttf</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -39,7 +55,7 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string></string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>
