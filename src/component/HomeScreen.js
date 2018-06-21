@@ -16,6 +16,7 @@ import Messages from '../constant/message';
 import {Actions} from 'react-native-router-flux';
 import StringUtils from '../utils/StringUtils'
 import API from '../network/API';
+import AccessTokenManager from '../data/AccessTokenManager';
 
 class HomeScreen extends Component {
   constructor(props) {
@@ -25,6 +26,11 @@ class HomeScreen extends Component {
 
   // UI CONTROL
   // -----------------------------------------------------------------------------
+
+  doLogout(){
+    AccessTokenManager.clear();
+    Actions.login()
+  }
   // - --- UI RENDER
   // -----------------------------------------------------------------------------
   // - ----
@@ -35,20 +41,16 @@ class HomeScreen extends Component {
         <Text>{Messages.home.product}</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.buttonText} onPress={() => Actions.order()}>
-        <Text>{Messages.home.order}</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.buttonText}
-        onPress={() => Actions.userProfile()}>
-        <Text>{Messages.home.profile}</Text>
-      </TouchableOpacity>
-
       <TouchableOpacity
         style={styles.buttonText}
         onPress={() => Actions.camera()}>
-        <Text>{`Camera`}</Text>
+        <Text>{Messages.camera}</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.buttonText}
+        onPress={() => this.doLogout()}>
+        <Text>{Messages.logout}</Text>
       </TouchableOpacity>
     </View>
 

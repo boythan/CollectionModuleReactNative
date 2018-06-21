@@ -3,7 +3,7 @@ import AbsListComponent from './AbsListComponent';
 class PagingListComponent<Response, Item, PagingData> extends AbsListComponent<Response, Item, PagingData> {
 
   static DefaultPagingData = {
-    pageIndex: 0,
+    pageIndex: 1,
     pageSize: 20,
   };
 

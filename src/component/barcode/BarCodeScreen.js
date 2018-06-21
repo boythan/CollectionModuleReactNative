@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Text, Button, Alert } from 'react-native';
 import { connect } from 'react-redux';
-import Messages from '../constant/message';
+import Messages from '../../constant/message';
 import { Actions } from 'react-native-router-flux';
 import Camera from 'react-native-camera';
 

@@ -1,7 +1,4 @@
 import axios from 'axios';
-
-
-
 import LogInterceptor from './interceptors/log';
 import AccessTokenInterceptor from './interceptors/accessToken';
 import UnauthorizeInterceptor from './interceptors/unauthorize';
@@ -11,7 +8,9 @@ import RNFetchBlob from 'react-native-fetch-blob'
 
 var RNFS = require('react-native-fs');
 
-const BASE_URL = 'http://159.89.209.249:3000';
+// const BASE_URL = 'https://api.github.com/';
+const BASE_URL = 'http://149.28.131.178/';
+
 const getInstance = (env) => {
   const instance = axios.create({
     baseURL: BASE_URL,
@@ -46,48 +45,21 @@ API.getUsers = () => {
   return API.instance.get('/users?since=135');
 }
 
-API.login = (username, password) => {
+API.login = (email, password) => {
   const params = {
-    username,
+    email,
     password
   }
-  return API.instance.post('/api/Users/login', params);
+  return API.instance.post('/api/customers/login', params);
 }
 
-API.getProducts = () => {
-  return API.instance.get('/api/Products')
-}
-
-API.createProduct = (product) => {
-  return API.instance.post(`/api/Products`, product)
-}
-
-API.updateProduct = (product) => {
-  return API.instance.put(`/api/Products/${product.id}`, product)
-}
-
-API.deleteProduct = (productId) => {
-  return API.instance.delete(`/api/Products/${productId}`)
-}
-
-API.getOrders = () => {
-  return API.instance.get('/api/Orders')
-}
-
-API.createOrder = (order) => {
-  return API.instance.post(`/api/Orders`, order)
-}
-
-API.updateOrder = (order) => {
-  return API.instance.put(`/api/Orders`, order)
-}
-
-API.deleteOrder = (orderId) => {
-  return API.instance.delete(`/api/Orders/${orderId}`)
-}
-
-API.getProductImages = (productId) => {
-  return API.instance.get(`/api/Products/${productId}/images`)
+API.getProducts = (pagingData, collectionID = 1300077) => {
+  const data = {
+    page: pagingData.pageIndex,
+    limit: pagingData.pageSize,
+    collection_id: collectionID
+  }
+  return API.instance.get(`/api/products`, { params: data })
 }
 
 API.uploadImage = (file) => {

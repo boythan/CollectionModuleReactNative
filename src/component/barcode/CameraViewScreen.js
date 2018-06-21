@@ -8,11 +8,11 @@ import {
   Alert
 } from 'react-native';
 import {connect} from 'react-redux';
-import Messages from '../constant/message';
+import Messages from '../../constant/message';
 
 import {Actions} from 'react-native-router-flux';
 
-import {ButtonIcon} from '../base';
+import {ButtonIcon} from '../../base/index';
 import {RNCamera} from 'react-native-camera';
 import {Icon} from 'react-native-elements'
 

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { View, TextInput, Button, Alert, StyleSheet, Keyboard, Text, Linking, TouchableOpacity, FlatList, Image } from 'react-native';
 import { connect } from 'react-redux';
 import Messages from '../../constant/message';
-import { Line, NavBar, WebImage , ButtonIcon} from '@base'
+import { Line, NavBar, WebImage, ButtonIcon } from '@base'
 
 import { Actions } from 'react-native-router-flux';
 import API from '../../network/API';
@@ -11,8 +11,10 @@ import ListComponent from '../../base/collection/ListComponent'
 import EmptyView from '../../base/collection/EmptyView'
 import PagingView from '../../base/collection/PagingView'
 import EventsType from '@redux/refresh/eventsType';
+import PagingListComponent from '../../base/collection/PagingListComponent';
+import ProductItem from './ProductItem';
 
-class ProductScreen extends ListComponent {
+class ProductScreen extends PagingListComponent {
   constructor(props) {
     super(props);
 
@@ -31,28 +33,11 @@ class ProductScreen extends ListComponent {
   }
   //UI CONTROL ---------------------------------------------------------------------------------
   source = (pagingData) => {
-    return API.getProducts();
+    return API.getProducts(pagingData);
   }
 
+  onClickProductItem(product) {
 
-  renderItem(item) {
-    const product = item.item;
-    return (
-      <TouchableOpacity style={styles.containerCell} onPress={() => Actions.productDetail({ product })}>
-        <WebImage
-          rounded
-          size={30}
-          source={{ uri: product.avatar_url }}
-          resizeMode='cover' />
-        <View style={{ width: AppSizes.screen.width - 40 }}>
-          <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Text style={styles.itemText}>{product.title}</Text>
-            <Text style={styles.itemText}>{product.price}</Text>
-          </View>
-          <Text style={styles.itemText}>{product.description}</Text>
-
-        </View>
-      </TouchableOpacity>)
   }
 
   keyExtractor = (item, index) => {
@@ -63,24 +48,23 @@ class ProductScreen extends ListComponent {
   }
 
   transformer(res) {
-    return res.data;
-  }
-
-  onClickAdd() {
-    Actions.createEditProduct();
+    return res.data.products;
   }
 
   //UI RENDER ----------------------------------------------------------------------------------
-  render() {
+  renderItem(item) {
+    const product = item.item;
+    return (
+      <ProductItem
+        product={product}
+        onPress={() => { this.onClickProductItem(product) }}
+      />)
+  }
 
+
+  render() {
     return <View style={styles.container}>
       <NavBar title={Messages.home.product}
-        rightView={<ButtonIcon
-          iconName={'add'}
-          iconColor={AppColors.iconColor}
-          iconSize={AppSizes.iconSize}
-          action={() => this.onClickAdd()}
-        />}
         leftButtonAction={() => Actions.pop()} />
       <FlatList
         style={styles.productList}

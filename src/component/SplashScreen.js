@@ -16,16 +16,15 @@ class SplashScreen extends Component {
   componentDidMount() {
     AccessTokenManager.initialize().then(
       () => {
-        // if (AccessTokenManager.getAccessToken()) {
-        //   Actions.home();
-        //   return;
-        // }
-        Actions.home();
+        if (AccessTokenManager.getAccessToken()) {
+          Actions.home();
+          return;
+        }
+        Actions.login();
       }).catch(err => {
         console.log('errorInitAccessToken', err)
         Actions.login();
       });
-    // setTimeout(function() {  }, 3000);
   }
   //UI CONTROL ---------------------------------------------------------------------------------
 

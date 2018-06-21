@@ -20,7 +20,7 @@ export function doLogin(userName, password) {
 loginSuccessAction = (res, dispatch) => {
   // need to store accessToken to AsyncStorage
   const account = res.data;
-  AccessTokenManager.saveAccessToken(account.id);
+  AccessTokenManager.saveAccessToken(account.token);
 
   // Send to Redux
   return dispatch({

@@ -6,6 +6,8 @@ export default {
   error: 'Error',
   success: 'Success',
   ok : 'Ok',
+  logout: 'logout',
+  camera: 'Camera',
   login: {
     userName: 'User name',
     password: 'Password',
@@ -29,10 +31,5 @@ export default {
     quantity: 'Quantity',
     attachment: 'Attachments'
   },
-  order :{
-    note: 'Note',
-    total: 'Total'
-  }
-
 
 }
