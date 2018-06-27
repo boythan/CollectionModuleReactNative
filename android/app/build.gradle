@@ -94,13 +94,13 @@ def enableSeparateBuildPerCPUArchitecture = false
 def enableProguardInReleaseBuilds = false
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "com.awesomestring"
+        applicationId "com.elevatorsimulator"
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
         ndk {
@@ -141,31 +141,17 @@ dependencies {
     compile project(':react-native-spinkit')
     compile project(':react-native-fs')
     compile project(':react-native-fetch-blob')
-    compile project(':react-native-camera')
     compile project(':react-native-vector-icons')
     compile project(':react-native-spinkit')
     compile project(':react-native-fs')
     compile project(':react-native-fetch-blob')
-
-
-    api fileTree(include: ['*.jar'], dir: 'libs')
-    api 'com.android.support:appcompat-v7:26.0.2'
-    api 'com.facebook.react:react-native:+'
-
-    api 'com.google.android.gms:play-services-vision:12.0.1'
-    // From node_modules
-
-    api (project(':react-native-camera')) {
-        exclude group: "com.google.android.gms"
-        api 'com.android.support:exifinterface:27.+'
-        api ('com.google.android.gms:play-services-vision:12.0.1') {
-            force = true
-        }
-    }
+    compile fileTree(dir: "libs", include: ["*.jar"])
+    compile "com.android.support:appcompat-v7:23.0.1"
+    compile "com.facebook.react:react-native:+"  // From node_modules
 }
 
 // Run this once to be able to run the application with BUCK
-// puts all api dependencies into folder libs for BUCK to use
+// puts all compile dependencies into folder libs for BUCK to use
 task copyDownloadableDepsToLibs(type: Copy) {
     from configurations.compile
     into 'libs'

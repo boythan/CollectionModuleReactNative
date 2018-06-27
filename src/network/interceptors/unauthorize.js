@@ -1,5 +1,4 @@
 import { Actions } from 'react-native-router-flux';
-import { AccessTokenManager } from '../../data/AccessTokenManager';
 
 const UnauthorizeStatusCode = 401;
 const LoginScene = 'login';

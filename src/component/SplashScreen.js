@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Text, Button } from 'react-native';
 import { connect } from 'react-redux';
 import Messages from '../constant/message';
-
-
 import { Actions } from 'react-native-router-flux';
-import AccessTokenManager from '@data/AccessTokenManager'
 
 class SplashScreen extends Component {
   constructor(props) {
@@ -14,17 +11,7 @@ class SplashScreen extends Component {
     }
   }
   componentDidMount() {
-    AccessTokenManager.initialize().then(
-      () => {
-        if (AccessTokenManager.getAccessToken()) {
-          Actions.home();
-          return;
-        }
-        Actions.login();
-      }).catch(err => {
-        console.log('errorInitAccessToken', err)
-        Actions.login();
-      });
+    Actions.home();
   }
   //UI CONTROL ---------------------------------------------------------------------------------
 

@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   },
 })
 
-export default class NavBar extends Component {
+class NavBar extends Component {
   render() {
     const _titleStyle = {};
     const _titleContainerStyle = {};
@@ -122,3 +122,5 @@ export default class NavBar extends Component {
     )
   }
 }
+
+export default NavBar;

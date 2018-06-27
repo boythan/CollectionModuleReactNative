@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   View,
   TextInput,
@@ -10,13 +10,11 @@ import {
   Linking,
   TouchableOpacity
 } from 'react-native';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import Messages from '../constant/message';
 
-import {Actions} from 'react-native-router-flux';
-import StringUtils from '../utils/StringUtils'
+import { Actions } from 'react-native-router-flux';
 import API from '../network/API';
-import AccessTokenManager from '../data/AccessTokenManager';
 
 class HomeScreen extends Component {
   constructor(props) {
@@ -27,31 +25,25 @@ class HomeScreen extends Component {
   // UI CONTROL
   // -----------------------------------------------------------------------------
 
-  doLogout(){
-    AccessTokenManager.clear();
-    Actions.login()
-  }
   // - --- UI RENDER
   // -----------------------------------------------------------------------------
   // - ----
+
+  renderButton(content, action) {
+    return (
+      <TouchableOpacity style={styles.buttonText}
+        onPress={action && action}>
+        <Text>{content}</Text>
+      </TouchableOpacity>
+    )
+  }
   render() {
 
     return <View style={styles.container}>
-      <TouchableOpacity style={styles.buttonText} onPress={() => Actions.product()}>
-        <Text>{Messages.home.product}</Text>
-      </TouchableOpacity>
+      {this.renderButton(Messages.elevator, () => Actions.elevator())}
+      {this.renderButton(Messages.rotateImage, () => Actions.rotateImage())}
+      {this.renderButton(Messages.instagram, () => Actions.loginInstagram())}
 
-      <TouchableOpacity
-        style={styles.buttonText}
-        onPress={() => Actions.camera()}>
-        <Text>{Messages.camera}</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.buttonText}
-        onPress={() => this.doLogout()}>
-        <Text>{Messages.logout}</Text>
-      </TouchableOpacity>
     </View>
 
   }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, TouchableOpacity, Keyboard, Button, Text } from 'react-native';
 import { AppStyles, AppColors, AppSizes } from '@theme';
 import PropTypes from 'prop-types';
-
+import _ from 'lodash'
 class ButtonText extends Component {
 
   static propsType = {

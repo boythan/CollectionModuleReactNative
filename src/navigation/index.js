@@ -7,10 +7,10 @@ import { Actions, Scene, Stack, Router } from 'react-native-router-flux';
 // Scenes
 import HomeScreen from '../component/HomeScreen.js';
 import SplashScreen from '../component/SplashScreen.js';
-import BarCodeScreen from '../component/barcode/BarCodeScreen';
-import LoginScreen from '../component/auth/LoginScreen';
-import ProductScreen from '../component/product/ProductScreen';
-import CameraViewScreen from '../component/barcode/CameraViewScreen';
+import ElevatorInputScreen from '../component/elevator/ElevatorInputScreen.js';
+import ElevatorSimulatorScreen from '../component/elevator/ElevatorSimulatorScreen.js';
+import RotateImageScreen from '../component/rotateImage/RotateImageScreen.js';
+import LoginInstagramScreen from '../component/instagram/LoginInstagramScreen.js';
 
 
 /* Routes ==================================================================== */
@@ -19,10 +19,10 @@ export default Actions.create(
     <Stack key="root" hideNavBar panHandlers={null}>
       <Scene key="splash" component={SplashScreen} />
       <Scene key="home" component={HomeScreen} />
-      <Scene key="barcode" component={BarCodeScreen} />
-      <Scene key="login" component={LoginScreen} />
-      <Scene key="product" component={ProductScreen} />
-      <Scene key="camera" component={CameraViewScreen} />
+      <Scene key="elevator" component={ElevatorInputScreen} />
+      <Scene key="elevatorSimulator" component={ElevatorSimulatorScreen} />
+      <Scene key="rotateImage" component={RotateImageScreen} />
+      <Scene key="loginInstagram" component={LoginInstagramScreen} />
     </Stack>
   </Router>
 );

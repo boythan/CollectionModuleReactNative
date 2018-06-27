@@ -1,21 +1,26 @@
 {
-  "name": "AwesomeString",
+  "name": "ElevatorSimulator",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest"
   },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts/"
+    ]
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "react": "16.2.0",
     "react-mixin": "^2.0.2",
     "react-native": "0.53.3",
-    "react-native-permissions": "^1.1.1",
-    "react-native-camera": "git+https://git@github.com/react-native-community/react-native-camera",
     "react-native-elements": "0.17.0",
     "react-native-fetch-blob": "^0.10.8",
     "react-native-fs": "^2.9.12",
+    "react-native-instagram-login": "^1.0.7",
+    "react-native-permissions": "^1.1.1",
     "react-native-router-flux": "^4.0.0-beta.28",
     "react-native-spinkit": "^1.1.1",
     "react-native-vector-icons": "4.4.2",
