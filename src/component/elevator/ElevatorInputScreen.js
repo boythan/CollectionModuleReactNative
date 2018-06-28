@@ -21,15 +21,14 @@ import AppSizes from '../../theme/sizes'
 class ElevatorInputScreen extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
     }
 
     // UI CONTROL
     // -----------------------------------------------------------------------------
     onClickSimulator() {
         const props = {
-            floorNumber: '12',
-            elevatorNumber: '4',
+            floorNumber: this.state.floorNumber,
+            elevatorNumber: this.state.elevatorNumber,
         }
         Actions.elevatorSimulator(props);
     }
@@ -50,7 +49,6 @@ class ElevatorInputScreen extends Component {
                     placeholder={message.floorNumber}
                     placeholderTextColor={AppColors.textSecondary}
                     onChangeText={floorNumber => this.setState({ floorNumber })}
-                    value={'12'}
                 />
 
                 <TextInput
@@ -61,7 +59,6 @@ class ElevatorInputScreen extends Component {
                     placeholder={message.elevatorNumber}
                     placeholderTextColor={AppColors.textSecondary}
                     onChangeText={elevatorNumber => this.setState({ elevatorNumber })}
-                    value = {'4'}
                 />
                 <ButtonText
                     containerStyle={styles.buttonText}

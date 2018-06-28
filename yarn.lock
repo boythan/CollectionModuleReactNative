@@ -2194,7 +2194,7 @@ inquirer@^3.0.6:
     strip-ansi "^4.0.0"
     through "^2.3.6"
 
-invariant@^2.0.0:
+invariant@^2.0.0, invariant@^2.1.0:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.4.tgz#610f3c92c9359ce1db616e538008d23ff35158e6"
   dependencies:
@@ -3777,12 +3777,11 @@ react-mixin@^2.0.2:
     object-assign "^2.0.0"
     smart-mixin "^1.2.0"
 
-"react-native-camera@git+https://git@github.com/react-native-community/react-native-camera":
-  version "1.1.1"
-  resolved "git+https://git@github.com/react-native-community/react-native-camera#0a7511ffd6cc310c4ee3ed07827e1e804242e5a2"
+react-native-cookies@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-cookies/-/react-native-cookies-3.3.0.tgz#527f65eb2d8a7a000107706bb11beb57f511e701"
   dependencies:
-    lodash "^4.17.4"
-    prop-types "^15.5.10"
+    invariant "^2.1.0"
 
 react-native-dismiss-keyboard@1.0.0:
   version "1.0.0"
@@ -3824,6 +3823,10 @@ react-native-fs@^2.9.12:
   dependencies:
     base-64 "^0.1.0"
     utf8 "^2.1.1"
+
+react-native-instagram-login@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/react-native-instagram-login/-/react-native-instagram-login-1.0.7.tgz#d8427c551099c457ac2f2b31fe81a78150be96d7"
 
 react-native-permissions@^1.1.1:
   version "1.1.1"

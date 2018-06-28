@@ -41,12 +41,31 @@ const getInstance = (env) => {
 const API = { instance: getInstance() };
 
 
-API.getFollowers = (accessToken, userId) => {
-  return API.instance.get(`/users/self/follows/?access_token=${accessToken}`);
+API.getFollower = (userId, cookie) => {
+  API.instance.headers = {
+    cookie
+  }
+  const data = {
+    query_hash: '37479f2b8209594dde7facb0d904896a',
+    variables: {
+      id: userId,
+      first: 24,
+    }
+  }
+  return API.instance.get(`https://www.instagram.com/graphql/query/`, { params: data });
 }
 
 API.getUserSelf = (accessToken) => {
   return API.instance.get(`/users/self/?access_token=${accessToken}`)
+}
+
+
+API.unFollower = (userID, cookie, token) => {
+  API.instance.headers = {
+    cookie,
+    'x-csrftoken' : token 
+  }
+  return API.instance.post(`https://www.instagram.com/web/friendships/${userID}/unfollow/`)
 }
 
 export default API;

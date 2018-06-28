@@ -31,6 +31,12 @@ const DIRECTION = {
     DOWN: 0,
     UP: 1,
 }
+
+const STATUS_USER = {
+    SELECT_CURRENT_FLOOR: 0,
+    SELECT_TARGET_FLOOR: 1,
+}
+
 class ElevatorSimulatorScreen extends Component {
     constructor(props) {
         super(props);
@@ -39,11 +45,9 @@ class ElevatorSimulatorScreen extends Component {
             elevatorNumber: Number.parseInt(props.elevatorNumber, 10),
             simulatorList: constructSimulatorList(props.floorNumber, props.elevatorNumber),
             elevatorFloorList: constructElevatorFloorList(props.elevatorNumber),
+            statusUser: STATUS_USER.SELECT_CURRENT_FLOOR
         };
     }
-
-    // UI CONTROL
-    // -----------------------------------------------------------------------------
 
     keyExtractor = (item, index) => {
         if (!item.id) {
@@ -52,7 +56,17 @@ class ElevatorSimulatorScreen extends Component {
         return item.id
     }
 
+    // - --- LOGIC
+    // -----------------------------------------------------------------------------
+    // - ----
 
+
+    /**
+     * After user select their current floor
+     * this fuction will move the nearest elevator to user's floor
+     * @param {*} floor 
+     * @param {*} direction 
+     */
     moveEleForWatingCus(floor, direction) {
         const nearestElevator = this.findNearestElevator(floor, direction)
         console.log(nearestElevator);
@@ -75,14 +89,19 @@ class ElevatorSimulatorScreen extends Component {
             status: STATUS.OPEN
         }
 
-        this.setState({ elevatorFloorList, simulatorList });
+        this.setState({ elevatorFloorList, simulatorList, statusUser: STATUS_USER.SELECT_TARGET_FLOOR });
     }
 
+    /**
+     * find the nearest elevator to current user's floor
+     * the near is evaluated by fomular that I refer on https://www.quora.com/Is-there-any-public-elevator-scheduling-algorithm-standard 
+     * @param {*} floor 
+     * @param {*} direction 
+     */
     findNearestElevator(floor, direction) {
 
-        let elevatorFloorList = this.state.elevatorFloorList;
+        let { elevatorFloorList } = this.state;
 
-        
         //if there is at least one ele in the customer's floor
         const index = _.findIndex(floor.elevatorInFloor, ele => {
             return ele.status === STATUS.ON;//ele.direction === direction && 
@@ -112,11 +131,25 @@ class ElevatorSimulatorScreen extends Component {
         return nearest;
     }
 
+
+    /**
+     * check elecator is toward to user or not
+     * @param {*} elevator 
+     * @param {*} floor 
+     */
     isTowardElevator(elevator, floor) {
         return (elevator.floor < floor.floor && elevator.direction === DIRECTION.UP) ||
             (elevator.floor > floor.floor && elevator.direction === DIRECTION.DOWN);
     }
+
+    // - --- UI CONTROL
+    // -----------------------------------------------------------------------------
+    // - ----
     onPressCurrentFloor(item) {
+        if (this.state.statusUser === STATUS_USER.SELECT_TARGET_FLOOR) {
+            Alert.alert(message.warning, message.youChooseTargetFloor)
+            return;
+        }
         Alert.alert(message.direction, '', [
             {
                 text: message.down,
@@ -135,7 +168,13 @@ class ElevatorSimulatorScreen extends Component {
     }
 
     onPressTargetFloor(item) {
-        let { simulatorList, elevatorFloorList } = this.state
+        let { simulatorList, elevatorFloorList, statusUser } = this.state
+
+        if (statusUser === STATUS_USER.SELECT_CURRENT_FLOOR) {
+            Alert.alert(message.warning, message.youChooseCurrentFloor)
+            return;
+        }
+
         const indexElevator = _.findIndex(elevatorFloorList, (ele) => {
             return ele.status === STATUS.OPEN;
         })
@@ -158,7 +197,7 @@ class ElevatorSimulatorScreen extends Component {
         }
         simulatorList[this.state.floorNumber - item.floor].elevatorInFloor[indexElevator].direction = direction;
         elevatorFloorList[indexElevator].direction = direction
-        this.setState({ simulatorList, elevatorFloorList })
+        this.setState({ simulatorList, elevatorFloorList, statusUser: STATUS_USER.SELECT_CURRENT_FLOOR })
     }
 
     getBackgroundColorElevator(status) {

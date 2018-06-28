@@ -7,6 +7,16 @@ import com.oblador.vectoricons.VectorIconsPackage;
 import com.react.rnspinkit.RNSpinkitPackage;
 import com.rnfs.RNFSPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
+import com.psykar.cookiemanager.CookieManagerPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
+import com.react.rnspinkit.RNSpinkitPackage;
+import com.rnfs.RNFSPackage;
+import com.RNFetchBlob.RNFetchBlobPackage;
+import com.psykar.cookiemanager.CookieManagerPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
+import com.react.rnspinkit.RNSpinkitPackage;
+import com.rnfs.RNFSPackage;
+import com.RNFetchBlob.RNFetchBlobPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.react.rnspinkit.RNSpinkitPackage;
 import com.rnfs.RNFSPackage;
@@ -31,6 +41,16 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new VectorIconsPackage(),
+            new RNSpinkitPackage(),
+            new RNFSPackage(),
+            new RNFetchBlobPackage(),
+            new CookieManagerPackage(),
+            new VectorIconsPackage(),
+            new RNSpinkitPackage(),
+            new RNFSPackage(),
+            new RNFetchBlobPackage(),
+            new CookieManagerPackage(),
             new VectorIconsPackage(),
             new RNSpinkitPackage(),
             new RNFSPackage(),

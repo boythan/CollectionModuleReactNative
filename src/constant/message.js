@@ -23,5 +23,10 @@ export default {
   rotateImage: 'Rotate Image',
   userName: 'User name',
   password: 'Password',
-  login : 'Login'
+  login : 'Login',
+  unFollow: 'Unfollow',
+  warning: 'Warning',
+  youChooseTargetFloor: `You are in the elevator, let's choose your target floor.`,
+  youChooseCurrentFloor: 'The first, you must choose your current floor.',
+  instagram: 'Instagram'
 }
