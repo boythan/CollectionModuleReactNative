@@ -20,18 +20,16 @@ import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
 import rootReducer from './redux/index';
 
-
-
 // Load middleware
 let middleware = [
-  thunk, 
+  thunk, // Allows action creators to return functions (not just plain objects)
 ];
 
 if (__DEV__) {
   // Dev-only middleware
   middleware = [
     ...middleware,
-    createLogger(), 
+    createLogger(), // Logs state changes to the dev console
   ];
 }
 
