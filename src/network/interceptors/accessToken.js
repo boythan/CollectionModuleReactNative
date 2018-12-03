@@ -8,6 +8,7 @@ export default AccessTokenInterceptor = {
     return config;
   },
 
+  
   onRejected: (error) => {
     return Promise.reject(error);
   }
