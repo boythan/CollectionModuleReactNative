@@ -27,8 +27,6 @@ let middleware = [
   thunk, 
 ];
 
-
-
 if (__DEV__) {
   // Dev-only middleware
   middleware = [
