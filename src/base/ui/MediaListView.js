@@ -6,7 +6,6 @@ import { Actions } from 'react-native-router-flux';
 import { AppColors } from '@theme';
 import _ from 'lodash';
 
-// component's styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -61,6 +60,8 @@ export default class MediaListView extends Component {
       </View>);
   }
 
+
+  
   renderCell = ({ item, index }) => {
     const { isAddMore } = item;
     return (
