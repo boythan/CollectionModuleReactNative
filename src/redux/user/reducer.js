@@ -9,6 +9,8 @@ export default function accountUser(state = initialState, action) {
         ...state,
         account: action.data,
       }
+
+      
     default:
       return state;
   }
