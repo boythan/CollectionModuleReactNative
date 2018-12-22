@@ -23,6 +23,7 @@ export default Actions.create(
       <Scene key="elevatorSimulator" component={ElevatorSimulatorScreen} />
       <Scene key="rotateImage" component={RotateImageScreen} />
       <Scene key="loginInstagram" component={LoginInstagramScreen} />
+      
     </Stack>
   </Router>
 );
